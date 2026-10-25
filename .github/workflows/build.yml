@@ -8,6 +8,9 @@ on:
       tag:
         description: "docker tag"
         default: "r56-527c828"
+      repo:
+        description: "submission repo (owner/name)"
+        default: "karvachiik-lgtm/r56-threejs"
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -22,7 +25,7 @@ jobs:
       - name: Checkout submission repo at frozen SHA
         uses: actions/checkout@v4
         with:
-          repository: karvachiik-lgtm/r56-threejs
+          repository: ${{ github.event.inputs.repo }}
           ref: ${{ github.event.inputs.sha }}
           path: src
       - name: Verify SHA matches the on-chain commitment
